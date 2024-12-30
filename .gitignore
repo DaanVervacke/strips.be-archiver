@@ -1,0 +1,4 @@
+*.cbz
+*.yaml
+bin/
+.idea/
