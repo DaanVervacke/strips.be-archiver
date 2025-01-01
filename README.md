@@ -26,11 +26,11 @@ strips.be-archiver --help
 
 ## Config
 
-[!IMPORTANT]
-Users must independently seek out the internal endpoints and secrets required by the app.
-An empty example configuration file (`example.config.yaml`) is provided in the root of this project.
-To function properly, the tool requires a complete and accurate configuration file.
-Use the --config flag to pass the configuration to the tool, as shown below.
+> [!IMPORTANT]
+> Users must independently seek out the internal endpoints and secrets required by the app.
+> An empty example configuration file (`example.config.yaml`) is provided in the root of this project.
+> To function properly, the tool requires a complete and accurate configuration file.
+> Use the `--config` flag to pass the configuration to the tool, as shown below.
 
 ```bash
 strips.be-archiver --config config.yaml
