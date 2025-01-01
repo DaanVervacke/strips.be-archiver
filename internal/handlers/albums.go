@@ -9,7 +9,7 @@ import (
 	"github.com/DaanVervacke/strips.be-archiver/pkg/api"
 )
 
-func HandleAlbum(cfg config.Config, albumID string, connections int) error {
+func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMetadata bool) error {
 	albumInformation, err := api.GetAlbumInformation(cfg, albumID)
 	if err != nil {
 		return err
@@ -54,18 +54,20 @@ func HandleAlbum(cfg config.Config, albumID string, connections int) error {
 		return fmt.Errorf("error creating temp directory: %v", err)
 	}
 
-	err = services.CreateComicInfoXML(albumInformation, tempDir)
-	if err != nil {
-		return err
-	}
+	if !excludeMetadata {
+		err = services.CreateComicInfoXML(albumInformation, tempDir)
+		if err != nil {
+			return err
+		}
 
-	fmt.Println(services.SuccessStyle.Render("SUCCESS"), "The metadata file related to this album has been created.")
+		fmt.Println(services.SuccessStyle.Render("SUCCESS"), "The metadata file related to this album has been created.")
+	}
 
 	services.DownloadFiles(cfg, playbookContent, tempDir, outputName, connections)
 
 	fmt.Println(services.SuccessStyle.Render("SUCCESS"), "The images related to this album have been downloaded.")
 
-	err = services.CreateCBZ(tempDir, outputName)
+	err = services.CreateCBZ(tempDir, outputName, excludeMetadata)
 	if err != nil {
 		return err
 	}

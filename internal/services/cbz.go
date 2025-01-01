@@ -13,7 +13,7 @@ import (
 	"github.com/DaanVervacke/strips.be-archiver/internal/types"
 )
 
-func CreateCBZ(tempPath, cbzFileName string) error {
+func CreateCBZ(tempPath, cbzFileName string, excludeMetadata bool) error {
 	var closeError error
 
 	zipfile, err := os.Create(cbzFileName + ".cbz")
@@ -40,9 +40,11 @@ func CreateCBZ(tempPath, cbzFileName string) error {
 		return err
 	}
 
-	sort.SliceStable(tempFiles, func(i, j int) bool {
-		return tempFiles[i].Name() == "ComicInfo.xml"
-	})
+	if !excludeMetadata {
+		sort.SliceStable(tempFiles, func(i, j int) bool {
+			return tempFiles[i].Name() == "ComicInfo.xml"
+		})
+	}
 
 	for _, file := range tempFiles {
 		filePath := filepath.Join(tempPath, file.Name())
