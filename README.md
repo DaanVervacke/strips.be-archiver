@@ -1,10 +1,16 @@
 # strips.be-archiver
 
-strips.be-archiver is a Golang library/CLI for interacting with the strips.be app. It allows users to properly archive
-comics.
+`strips.be-archiver` is a command-line interface (CLI) tool designed for interacting with
+the [strips.be](https://strips.be/) app.
 
-Comics are saved as .cbz files and include a ComicInfo.xml file for metadata, which follows
-the [Anasi Project Standards](https://anansi-project.github.io/).
+## Features
+
+- 🚀 Written in Golang
+- 🖥️ Cross-platform
+- 🔑 Log-in with your personal account
+- 🔍 Search for albums and series along with their corresponding UUIDs
+- 🗃️ Archive your favorite comics as `.cbz` files
+- ℹ️ Embed [ComicInfo metadata](https://anansi-project.github.io/docs/comicinfo/intro)
 
 ## Build
 
@@ -18,56 +24,23 @@ make build
 strips.be-archiver --help
 ```
 
-## Example config
+## Config
 
-```yaml
-config:
-  api:
-    baseUrl:
-    albumPath:
-    seriesPath:
-    accountPath:
-    profilePath:
-    tradePath:
-    refreshPath:
+[!IMPORTANT]
+Users must independently seek out the internal endpoints and secrets required by the app.
+An empty example configuration file (`example.config.yaml`) is provided in the root of this project.
+To function properly, the tool requires a complete and accurate configuration file.
+Use the --config flag to pass the configuration to the tool, as shown below.
 
-    basicHeaders:
-      Accept-Encoding:
-      AppVersion:
-      Host:
-      User-Agent:
-
-    tradeHeaders:
-      x-device-os:
-      x-device-os-version:
-      x-device-type:
-
-    playbookHeaders:
-      Accept-Encoding:
-      AppVersion:
-      Host:
-      User-Agent:
-
-  auth:
-    baseUrl:
-    otpPath:
-    otpRedirectTo:
-    verifyPath:
-
-    headers:
-      apikey:
-      Accept-Encoding:
-      Authorization:
-      Content-Type:
-      Host:
-      User-Agent:
-      x-client-info:
-
-    account:
-      accessToken:
-      refreshToken:
-      deviceId:
+```bash
+strips.be-archiver --config config.yaml
 ```
+
+## Content
+
+As strips.be is a paid service requiring a monthly or yearly subscription, only users with a valid subscription can
+archive all series and albums.
+Users without a subscription are limited to archiving comics from the "free to read" section.
 
 ## Contributing
 
@@ -75,14 +48,14 @@ Pull requests are welcome. For major changes, please open an issue first.
 
 ## Legal Notice
 
-By using strips.be-archiver, you agree to comply with
+By using `strips.be-archiver`, you agree to comply with
 the [strips.be terms of service](https://strips.be/algemene-gebruiks-en-verkoopvoorwaarden-strips-be/).
 
 This tool does not bypass any digital rights management (DRM) protections and is specifically designed to avoid leaking
 any internal endpoints or secrets used by the strips.be app. It is intended solely for archiving publicly available
 content that users have permission to download and preserve.
 
-strips.be-archiver is a passion project created for the purpose of preserving comics. The goal is
+`strips.be-archiver` is a passion project created for the purpose of preserving comics. The goal is
 to provide a way for individuals to archive their own personal collections, especially in cases where comics may no
 longer be publicly available or accessible. The tool does not promote, encourage, or facilitate the distribution of
 copyrighted material.
