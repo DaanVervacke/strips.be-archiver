@@ -34,6 +34,8 @@ func main() {
 	randomizeOrderFlag := flag.Bool("randomize-order", false, "Use this flag to randomize the download order of a series.")
 	randomizeDelayFlag := flag.Bool("randomize-delay", false, "Use this flag to randomize the delay between each download.")
 
+	excludeMetadataFlag := flag.Bool("exclude-metadata", false, "Use this flag to exclude the ComicInfo.xml file from the final archive.")
+
 	flag.Parse()
 
 	if *configFlag == "" {
@@ -64,9 +66,9 @@ func main() {
 	} else if *refreshFlag {
 		err = handlers.HandleRefresh(cfg)
 	} else if *albumIDFlag != "" {
-		err = handlers.HandleAlbum(cfg, *albumIDFlag, *connectionsFlag)
+		err = handlers.HandleAlbum(cfg, *albumIDFlag, *connectionsFlag, *excludeMetadataFlag)
 	} else if *seriesIDFlag != "" {
-		err = handlers.HandleSeries(cfg, *seriesIDFlag, *connectionsFlag, *rangeStartFlag, *rangeEndFlag, *randomizeOrderFlag, *randomizeDelayFlag)
+		err = handlers.HandleSeries(cfg, *seriesIDFlag, *connectionsFlag, *rangeStartFlag, *rangeEndFlag, *randomizeOrderFlag, *randomizeDelayFlag, *excludeMetadataFlag)
 	} else if *searchAlbumsFlag != "" {
 		err = handlers.HandleAlbumsSearch(cfg, *searchAlbumsFlag)
 	} else if *searchSeriesFlag != "" {
