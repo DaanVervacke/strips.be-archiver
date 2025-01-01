@@ -1,0 +1,46 @@
+config:
+  api:
+    baseUrl:
+    albumPath:
+    seriesPath:
+    accountPath:
+    profilePath:
+    tradePath:
+    refreshPath:
+
+    basicHeaders:
+      Accept-Encoding:
+      AppVersion:
+      Host:
+      User-Agent:
+
+    tradeHeaders:
+      x-device-os:
+      x-device-os-version:
+      x-device-type:
+
+    playbookHeaders:
+      Accept-Encoding:
+      AppVersion:
+      Host:
+      User-Agent:
+
+  auth:
+    baseUrl:
+    otpPath:
+    otpRedirectTo:
+    verifyPath:
+
+    headers:
+      apikey:
+      Accept-Encoding:
+      Authorization:
+      Content-Type:
+      Host:
+      User-Agent:
+      x-client-info:
+
+    account:
+      accessToken:
+      refreshToken:
+      deviceId:
