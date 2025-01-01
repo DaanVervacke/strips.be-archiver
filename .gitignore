@@ -1,4 +1,4 @@
 *.cbz
-*.yaml
+config.yaml
 bin/
 .idea/
