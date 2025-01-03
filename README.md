@@ -1,7 +1,8 @@
-# strips.be-archiver
-
-`strips.be-archiver` is a command-line interface (CLI) tool designed for interacting with
-the [strips.be](https://strips.be/) app.
+<div align="center">
+    <img height="95" src="./.github/strips-be-archiver-logo.png" alt="strips.be-archiver-logo" style="margin-bottom: -10px;">
+    <h1 style="margin-top: 0;">strips.be-archiver</h1>
+    <sup><em>command-line interface (CLI) tool designed for interacting with the strips.be app</em></sup>
+</div>
 
 ## Features
 
