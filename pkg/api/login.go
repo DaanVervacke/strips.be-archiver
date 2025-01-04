@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/services"
+	"github.com/DaanVervacke/strips.be-archiver/internal/helpers"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 )
 
@@ -25,7 +25,7 @@ func PostUserData(cfg config.Config, email string) error {
 		"code_challenge_method": nil,
 	}
 
-	_, err := services.PostRequest(
+	_, err := helpers.PostRequest(
 		passwordURL,
 		&cfg.Auth.Headers,
 		data,
@@ -50,7 +50,7 @@ func VerifyUser(cfg config.Config, email string, otp string) (string, error) {
 		},
 	}
 
-	response, err := services.PostRequest(
+	response, err := helpers.PostRequest(
 		verifyURL,
 		&cfg.Auth.Headers,
 		data,
@@ -73,17 +73,17 @@ func VerifyUser(cfg config.Config, email string, otp string) (string, error) {
 func TradeJWT(cfg config.Config, accessToken string) (string, string, error) {
 	tradeURL := cfg.API.BaseURL.JoinPath(cfg.API.TradePath)
 
-	headers := services.MergeHeaders(cfg.API.BasicHeaders, cfg.API.TradeHeaders)
+	headers := helpers.MergeHeaders(cfg.API.BasicHeaders, cfg.API.TradeHeaders)
 	headers.Add("Authorization", fmt.Sprintf("Bearer %s", accessToken))
 
-	UUID, err := services.GenerateUUID()
+	UUID, err := helpers.GenerateUUID()
 	if err != nil {
 		return "", "", err
 	}
 
 	headers.Add("x-device-id", UUID)
 
-	response, err := services.GetRequest(
+	response, err := helpers.GetRequest(
 		tradeURL,
 		&headers,
 	)
@@ -109,7 +109,7 @@ func RefreshJWT(cfg config.Config) (string, error) {
 	headers.Add("Authorization", fmt.Sprintf("Bearer %s", cfg.Auth.Account.AccessToken))
 	headers.Add("x-device-id", cfg.Auth.Account.DeviceID)
 
-	response, err := services.GetRequest(
+	response, err := helpers.GetRequest(
 		refreshURL,
 		&headers,
 	)

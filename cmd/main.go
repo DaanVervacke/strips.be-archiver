@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/DaanVervacke/strips.be-archiver/internal/handlers"
-	"github.com/DaanVervacke/strips.be-archiver/internal/services"
+	"github.com/DaanVervacke/strips.be-archiver/internal/helpers"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 )
 
@@ -51,12 +51,12 @@ func main() {
 		handleError(err)
 	}
 
-	if *albumIDFlag != "" && !services.IsValidUUID(*albumIDFlag) {
+	if *albumIDFlag != "" && !helpers.IsValidUUID(*albumIDFlag) {
 		err := fmt.Errorf("invalid album ID format. Expected format is a valid UUID")
 		handleError(err)
 	}
 
-	if *seriesIDFlag != "" && !services.IsValidUUID(*seriesIDFlag) {
+	if *seriesIDFlag != "" && !helpers.IsValidUUID(*seriesIDFlag) {
 		err := fmt.Errorf("invalid series ID format. Expected format is a valid UUID")
 		handleError(err)
 	}
@@ -82,7 +82,7 @@ func main() {
 
 func handleError(err error) {
 	if err != nil {
-		fmt.Printf("%s %v\n", services.ErrorStyle.Render("ERROR"), err.Error())
+		fmt.Printf("%s %v\n", helpers.ErrorStyle.Render("ERROR"), err.Error())
 		os.Exit(1)
 	}
 }

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/services"
+	"github.com/DaanVervacke/strips.be-archiver/internal/helpers"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
@@ -15,7 +15,7 @@ func GetSeriesInformation(cfg config.Config, seriesID string) (types.Series, err
 	headers := cfg.API.BasicHeaders.Clone()
 	headers.Add("Authorization", fmt.Sprintf("Bearer %s", cfg.Auth.Account.AccessToken))
 
-	body, err := services.GetRequest(
+	body, err := helpers.GetRequest(
 		seriesURL,
 		&headers,
 	)

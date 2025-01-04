@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/services"
+	"github.com/DaanVervacke/strips.be-archiver/internal/helpers"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
@@ -21,7 +21,7 @@ func SearchAlbums(cfg config.Config, contentKeyword string) ([]types.Album, erro
 
 	searchUrl.RawQuery = params.Encode()
 
-	body, err := services.GetRequest(searchUrl, &headers)
+	body, err := helpers.GetRequest(searchUrl, &headers)
 	if err != nil {
 		return nil, fmt.Errorf("album search failed: %w", err)
 	}
@@ -47,7 +47,7 @@ func SearchSeries(cfg config.Config, contentKeyword string) ([]types.Series, err
 
 	searchUrl.RawQuery = params.Encode()
 
-	body, err := services.GetRequest(searchUrl, &headers)
+	body, err := helpers.GetRequest(searchUrl, &headers)
 	if err != nil {
 		return nil, fmt.Errorf("series search failed: %w", err)
 	}

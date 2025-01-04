@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/services"
+	"github.com/DaanVervacke/strips.be-archiver/internal/helpers"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
@@ -17,7 +17,7 @@ func GetAlbumInformation(cfg config.Config, albumID string) (types.Album, error)
 	headers := cfg.API.BasicHeaders.Clone()
 	headers.Add("Authorization", fmt.Sprintf("Bearer %s", cfg.Auth.Account.AccessToken))
 
-	body, err := services.GetRequest(
+	body, err := helpers.GetRequest(
 		albumURL,
 		&headers,
 	)
@@ -40,7 +40,7 @@ func GetPlaybookURL(cfg config.Config, albumID string) (*url.URL, error) {
 	headers := cfg.API.BasicHeaders.Clone()
 	headers.Add("Authorization", fmt.Sprintf("Bearer %s", cfg.Auth.Account.AccessToken))
 
-	body, err := services.GetRequest(albumContentURL, &headers)
+	body, err := helpers.GetRequest(albumContentURL, &headers)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get playbook URL: %w", err)
 	}
@@ -62,7 +62,7 @@ func GetPlaybookURL(cfg config.Config, albumID string) (*url.URL, error) {
 }
 
 func GetPlaybookContent(cfg config.Config, playbookURL *url.URL) ([]types.Image, error) {
-	body, err := services.GetRequest(playbookURL, &cfg.API.PlaybookHeaders)
+	body, err := helpers.GetRequest(playbookURL, &cfg.API.PlaybookHeaders)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get playbook content: %w", err)
 	}

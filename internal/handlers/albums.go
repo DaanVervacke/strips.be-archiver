@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/services"
+	"github.com/DaanVervacke/strips.be-archiver/internal/helpers"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/api"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/services"
 )
 
 func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMetadata bool) error {
@@ -16,7 +17,7 @@ func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMeta
 	}
 
 	if albumInformation.StatusForProfile != "AVAILABLE" {
-		fmt.Println(services.WarningStyle.Render("WARNING"), fmt.Sprintf("album %s is not available for your profile, skipping...", albumID))
+		fmt.Println(helpers.WarningStyle.Render("WARNING"), fmt.Sprintf("album %s is not available for your profile, skipping...", albumID))
 		return nil
 	}
 
@@ -25,22 +26,22 @@ func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMeta
 		return err
 	}
 
-	fmt.Println(services.TitleStyle.Render(" ALBUM INFO  "), fmt.Sprintf("Title: %s | Series: %s | Release Date: %s", albumInformation.Title, albumInformation.Series.Name, albumInformation.PublicationDate))
-	fmt.Println(services.TitleStyle.Render(" EXPORT INFO "), fmt.Sprintf("Output Name: %s", outputName))
+	fmt.Println(helpers.TitleStyle.Render(" ALBUM INFO  "), fmt.Sprintf("Title: %s | Series: %s | Release Date: %s", albumInformation.Title, albumInformation.Series.Name, albumInformation.PublicationDate))
+	fmt.Println(helpers.TitleStyle.Render(" EXPORT INFO "), fmt.Sprintf("Output Name: %s", outputName))
 
 	playbookURL, err := api.GetPlaybookURL(cfg, albumID)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(services.SuccessStyle.Render("SUCCESS"), "The playbook URL has been found.")
+	fmt.Println(helpers.SuccessStyle.Render("SUCCESS"), "The playbook URL has been found.")
 
 	playbookContent, err := api.GetPlaybookContent(cfg, playbookURL)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(services.SuccessStyle.Render("SUCCESS"), "The playbook content has been parsed.")
+	fmt.Println(helpers.SuccessStyle.Render("SUCCESS"), "The playbook content has been parsed.")
 
 	albumInformation.AmountOfPages = len(playbookContent)
 
@@ -60,19 +61,21 @@ func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMeta
 			return err
 		}
 
-		fmt.Println(services.SuccessStyle.Render("SUCCESS"), "The metadata file related to this album has been created.")
+		fmt.Println(helpers.SuccessStyle.Render("SUCCESS"), "The metadata file related to this album has been created.")
 	}
 
-	services.DownloadFiles(cfg, playbookContent, tempDir, outputName, connections)
+	if err := services.DownloadImages(cfg, playbookContent, tempDir, outputName, connections); err != nil {
+		return fmt.Errorf("error while downloading images: %v", err)
+	}
 
-	fmt.Println(services.SuccessStyle.Render("SUCCESS"), "The images related to this album have been downloaded.")
+	fmt.Println(helpers.SuccessStyle.Render("SUCCESS"), "The images related to this album have been downloaded.")
 
 	err = services.CreateCBZ(tempDir, outputName, excludeMetadata)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(services.SuccessStyle.Render("SUCCESS") + " Your archive has been created and saved as: " + outputName + ".cbz")
+	fmt.Println(helpers.SuccessStyle.Render("SUCCESS") + " Your archive has been created and saved as: " + outputName + ".cbz")
 
 	err = services.Cleanup(tempDir)
 	if err != nil {

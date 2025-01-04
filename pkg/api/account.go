@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/services"
+	"github.com/DaanVervacke/strips.be-archiver/internal/helpers"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
@@ -15,7 +15,7 @@ func GetAccount(cfg config.Config, accessToken string) (types.Account, error) {
 	headers := cfg.API.BasicHeaders.Clone()
 	headers.Set("Authorization", fmt.Sprintf("Bearer %s", accessToken))
 
-	body, err := services.GetRequest(
+	body, err := helpers.GetRequest(
 		accountURL,
 		&headers,
 	)
@@ -43,7 +43,7 @@ func SelectProfile(cfg config.Config, accessToken string, profileId string) (str
 		"pin": nil,
 	}
 
-	response, err := services.PostRequest(
+	response, err := helpers.PostRequest(
 		profileURL,
 		&headers,
 		data,
