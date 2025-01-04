@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/types"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
 
 func CreateCBZ(tempPath, cbzFileName string, excludeMetadata bool) error {

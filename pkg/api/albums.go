@@ -7,8 +7,8 @@ import (
 	"path"
 
 	"github.com/DaanVervacke/strips.be-archiver/internal/services"
-	"github.com/DaanVervacke/strips.be-archiver/internal/types"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
 
 func GetAlbumInformation(cfg config.Config, albumID string) (types.Album, error) {

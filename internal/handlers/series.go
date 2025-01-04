@@ -5,9 +5,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/types"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/api"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
 
 func HandleSeries(cfg config.Config, seriesID string, connections int, startAlbum int, endAlbum int, randomOrder bool, randomDelay bool, excludeMetadata bool) error {

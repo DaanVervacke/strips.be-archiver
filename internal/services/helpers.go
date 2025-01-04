@@ -14,7 +14,7 @@ import (
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/types"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
 
 func GenerateUUID() (string, error) {

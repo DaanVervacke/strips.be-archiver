@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/DaanVervacke/strips.be-archiver/internal/services"
-	"github.com/DaanVervacke/strips.be-archiver/internal/types"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
 
 func GetAccount(cfg config.Config, accessToken string) (types.Account, error) {

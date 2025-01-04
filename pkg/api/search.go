@@ -6,8 +6,8 @@ import (
 	"net/url"
 
 	"github.com/DaanVervacke/strips.be-archiver/internal/services"
-	"github.com/DaanVervacke/strips.be-archiver/internal/types"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
 
 func SearchAlbums(cfg config.Config, contentKeyword string) ([]types.Album, error) {

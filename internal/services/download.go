@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/types"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
 
 func DownloadFiles(cfg config.Config, images []types.Image, tempDir string, outputNameBase string, connections int) {
