@@ -5,7 +5,7 @@ import (
 	"github.com/greencoda/confiq"
 	confiqyaml "github.com/greencoda/confiq/loaders/yaml"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/types"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
 
 type Config struct {
