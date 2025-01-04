@@ -3,9 +3,9 @@ package handlers
 import (
 	"fmt"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/config"
 	"github.com/DaanVervacke/strips.be-archiver/internal/services"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/api"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 )
 
 func HandleRefresh(cfg config.Config) error {

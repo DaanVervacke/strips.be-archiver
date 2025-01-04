@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/config"
 	"github.com/DaanVervacke/strips.be-archiver/internal/handlers"
 	"github.com/DaanVervacke/strips.be-archiver/internal/services"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 )
 
 func main() {

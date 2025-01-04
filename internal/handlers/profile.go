@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"github.com/DaanVervacke/strips.be-archiver/internal/config"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/api"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 )
 
 func ProfileHandler(cfg config.Config, stripsBeAccessToken string) (string, error) {

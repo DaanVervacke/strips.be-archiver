@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/config"
 	"github.com/DaanVervacke/strips.be-archiver/internal/services"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/api"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 )
 
 func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMetadata bool) error {

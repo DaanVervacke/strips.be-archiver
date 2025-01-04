@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/config"
 	"github.com/DaanVervacke/strips.be-archiver/internal/services"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 )
 
 func PostUserData(cfg config.Config, email string) error {
