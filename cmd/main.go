@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-
 	var err error
 
 	albumIDFlag := flag.String("download-album", "", "The ID of the album to be processed. This should be a valid UUID.")
