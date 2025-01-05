@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/DaanVervacke/strips.be-archiver/internal/helpers"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/api"
@@ -10,7 +9,7 @@ import (
 	"github.com/DaanVervacke/strips.be-archiver/pkg/services"
 )
 
-func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMetadata bool) error {
+func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMetadata bool, outputDir string) error {
 	albumInformation, err := api.GetAlbumInformation(cfg, albumID)
 	if err != nil {
 		return err
@@ -45,12 +44,7 @@ func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMeta
 
 	albumInformation.AmountOfPages = len(playbookContent)
 
-	currentDir, err := os.Getwd()
-	if err != nil {
-		return fmt.Errorf("error getting current directory: %v", err)
-	}
-
-	tempDir, err := services.CreateTempDir(currentDir)
+	tempDir, err := services.CreateTempDir(outputDir)
 	if err != nil {
 		return fmt.Errorf("error creating temp directory: %v", err)
 	}
@@ -70,7 +64,7 @@ func HandleAlbum(cfg config.Config, albumID string, connections int, excludeMeta
 
 	fmt.Println(helpers.SuccessStyle.Render("SUCCESS"), "The images related to this album have been downloaded.")
 
-	err = services.CreateCBZ(tempDir, outputName, excludeMetadata)
+	err = services.CreateCBZ(outputDir, tempDir, outputName, excludeMetadata)
 	if err != nil {
 		return err
 	}

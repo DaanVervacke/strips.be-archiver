@@ -10,7 +10,7 @@ import (
 	"github.com/DaanVervacke/strips.be-archiver/pkg/types"
 )
 
-func HandleSeries(cfg config.Config, seriesID string, connections int, startAlbum int, endAlbum int, randomOrder bool, randomDelay bool, excludeMetadata bool) error {
+func HandleSeries(cfg config.Config, seriesID string, connections int, startAlbum int, endAlbum int, randomOrder bool, randomDelay bool, excludeMetadata bool, outputDir string) error {
 	var albumNumbers []int
 
 	if startAlbum > 0 && endAlbum > 0 && endAlbum >= startAlbum {
@@ -53,7 +53,7 @@ func HandleSeries(cfg config.Config, seriesID string, connections int, startAlbu
 	}
 
 	for i, album := range albums {
-		err := HandleAlbum(cfg, album.ID, connections, excludeMetadata)
+		err := HandleAlbum(cfg, album.ID, connections, excludeMetadata, outputDir)
 		if err != nil {
 			return err
 		}
