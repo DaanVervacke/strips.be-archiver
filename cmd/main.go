@@ -14,8 +14,8 @@ import (
 func main() {
 	var err error
 
-	albumIDFlag := flag.String("download-album", "", "The ID of the album to be processed. This should be a valid UUID.")
-	seriesIDFlag := flag.String("download-series", "", "The ID of the series to be processed. This should be a valid UUID.")
+	albumIDFlag := flag.String("archive-album", "", "The ID of the album to be processed. This should be a valid UUID.")
+	seriesIDFlag := flag.String("archive-series", "", "The ID of the series to be processed. This should be a valid UUID.")
 
 	searchAlbumsFlag := flag.String("search-album", "", "An album name to search for. Returns matching IDs.")
 	searchSeriesFlag := flag.String("search-series", "", "A series name to search for. Returns matching IDs.")
