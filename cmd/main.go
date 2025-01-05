@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/DaanVervacke/strips.be-archiver/pkg/services"
 	"os"
 
 	"github.com/DaanVervacke/strips.be-archiver/internal/handlers"
@@ -20,6 +21,7 @@ func main() {
 	searchSeriesFlag := flag.String("search-series", "", "A series name to search for. Returns matching IDs.")
 
 	configFlag := flag.String("config", "", "Path to your strips.be config file")
+	outputDirFlag := flag.String("output-dir", ".", "Path to the album output directory")
 
 	loginFlag := flag.String("login", "", "The e-mail address associated with your strips.be account.")
 	refreshFlag := flag.Bool("refresh", false, "Refresh the access token that is currently associated with your strips.be account.")
@@ -45,6 +47,10 @@ func main() {
 	cfg, err := config.LoadConfig(*configFlag)
 	handleError(err)
 
+	if err := services.CheckDir(*outputDirFlag); err != nil {
+		handleError(err)
+	}
+
 	if *albumIDFlag == "" && *seriesIDFlag == "" && *searchAlbumsFlag == "" && *searchSeriesFlag == "" && *loginFlag == "" && !*refreshFlag {
 		err := fmt.Errorf("either the 'download-album', 'download-series', 'search-album', 'search-series', 'login' or 'refresh' flag is required. Please provide a valid flag")
 		handleError(err)
@@ -65,9 +71,19 @@ func main() {
 	} else if *refreshFlag {
 		err = handlers.HandleRefresh(cfg)
 	} else if *albumIDFlag != "" {
-		err = handlers.HandleAlbum(cfg, *albumIDFlag, *connectionsFlag, *excludeMetadataFlag)
+		err = handlers.HandleAlbum(cfg, *albumIDFlag,
+			*connectionsFlag,
+			*excludeMetadataFlag,
+			*outputDirFlag)
 	} else if *seriesIDFlag != "" {
-		err = handlers.HandleSeries(cfg, *seriesIDFlag, *connectionsFlag, *rangeStartFlag, *rangeEndFlag, *randomizeOrderFlag, *randomizeDelayFlag, *excludeMetadataFlag)
+		err = handlers.HandleSeries(cfg, *seriesIDFlag,
+			*connectionsFlag,
+			*rangeStartFlag,
+			*rangeEndFlag,
+			*randomizeOrderFlag,
+			*randomizeDelayFlag,
+			*excludeMetadataFlag,
+			*outputDirFlag)
 	} else if *searchAlbumsFlag != "" {
 		err = handlers.HandleAlbumsSearch(cfg, *searchAlbumsFlag)
 	} else if *searchSeriesFlag != "" {

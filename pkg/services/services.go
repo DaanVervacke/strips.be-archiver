@@ -58,6 +58,14 @@ func Cleanup(tempDir string) error {
 	return nil
 }
 
+func CheckDir(outputDir string) error {
+	if _, err := os.Stat(outputDir); os.IsNotExist(err) {
+		return fmt.Errorf("invalid output directory %q", outputDir)
+	}
+
+	return nil
+}
+
 func DownloadImages(cfg config.Config, images []types.Image, tempDir string, outputNameBase string, connections int) error {
 	var wg sync.WaitGroup
 	var downloadErr error
@@ -131,10 +139,12 @@ func CreateComicInfoXML(albumInfo types.Album, tempPath string) error {
 	return nil
 }
 
-func CreateCBZ(tempPath, cbzFileName string, excludeMetadata bool) error {
+func CreateCBZ(outputDir string, tempDir string, fileName string, excludeMetadata bool) error {
 	var closeError error
 
-	zipfile, err := os.Create(cbzFileName + ".cbz")
+	outputPath := filepath.Join(outputDir, fileName+".cbz")
+
+	zipfile, err := os.Create(outputPath)
 	if err != nil {
 		return err
 	}
@@ -153,7 +163,7 @@ func CreateCBZ(tempPath, cbzFileName string, excludeMetadata bool) error {
 		}
 	}()
 
-	tempFiles, err := os.ReadDir(tempPath)
+	tempFiles, err := os.ReadDir(tempDir)
 	if err != nil {
 		return err
 	}
@@ -165,7 +175,7 @@ func CreateCBZ(tempPath, cbzFileName string, excludeMetadata bool) error {
 	}
 
 	for _, file := range tempFiles {
-		filePath := filepath.Join(tempPath, file.Name())
+		filePath := filepath.Join(tempDir, file.Name())
 
 		data, err := os.ReadFile(filePath)
 		if err != nil {
