@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"fmt"
+	"log/slog"
 
-	"github.com/DaanVervacke/strips.be-archiver/internal/helpers"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/api"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
 )
@@ -27,7 +27,7 @@ func HandleRefresh(cfg config.Config) error {
 		return err
 	}
 
-	fmt.Printf("%s Refresh flow has been completed!\n\nYour new access token is: %s\n\nYour new refresh token is: %s\n", helpers.SuccessStyle.Render("SUCCESS"), newAccessToken, newRefreshToken)
+	slog.Info("refresh flow has been completed", "access_token", newAccessToken, "refresh_token", newRefreshToken)
 
 	return nil
 }

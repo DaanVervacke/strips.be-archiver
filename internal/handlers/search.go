@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"fmt"
+	"log/slog"
 
 	"github.com/DaanVervacke/strips.be-archiver/pkg/api"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/config"
@@ -18,7 +18,7 @@ func HandleAlbumsSearch(cfg config.Config, searchKeyword string) error {
 	}
 
 	for _, album := range albumResults {
-		fmt.Printf("%s | %s | %s\n", album.Title, album.Series.Name, album.ID)
+		slog.Info("found album", "title", album.Title, "series", album.Series.Name, "id", album.ID)
 	}
 
 	return nil
@@ -35,7 +35,7 @@ func HandleSeriesSearch(cfg config.Config, searchKeyword string) error {
 	}
 
 	for _, result := range results {
-		fmt.Printf("%s | %s\n", result.Name, result.ID)
+		slog.Info("found series", "name", result.Name, "id", result.ID)
 	}
 
 	return nil
