@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/DaanVervacke/strips.be-archiver/pkg/services"
+	"log/slog"
 	"os"
 
 	"github.com/DaanVervacke/strips.be-archiver/internal/handlers"
@@ -97,7 +98,7 @@ func main() {
 
 func handleError(err error) {
 	if err != nil {
-		fmt.Printf("%s %v\n", helpers.ErrorStyle.Render("ERROR"), err.Error())
+		slog.Error("something went wrong", "error", err)
 		os.Exit(1)
 	}
 }
