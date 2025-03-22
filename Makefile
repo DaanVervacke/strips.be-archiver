@@ -11,3 +11,6 @@ build-linux-arm:
 
 build-windows:
 	GOOS=windows GOARCH=amd64 go build -o "bin/strips.be-archiver.exe" cmd/main.go
+
+docker-build:
+	docker build --tag strips.be-archiver .

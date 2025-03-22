@@ -98,7 +98,7 @@ func main() {
 
 func handleError(err error) {
 	if err != nil {
-		slog.Error("something went wrong", "error", err)
+		slog.Error("something went wrong", "details", err)
 		os.Exit(1)
 	}
 }
